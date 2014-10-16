@@ -209,25 +209,33 @@
 ****************************************************************/
 Amortize::Amortize() 
 {
-  //TODO cast string to int and make :( string
   //Initialize member variables
-  mPrincipal = stod(System.getProperty("p", "-1.0"));
+
+  //get 'p' as the principal
+  mPrincipal = atof(System.getProperty("p", "-1.0").c_str());
   mHavePrincipal = mPrincipal != -1.0;
 
-  mPeriodicRate = stod(System.getProperty("i", "-1.0"));
-  mHavePeriodicRate = mPeriodicRate != -1.0;
-  if (mHavePeriodicRate)
-    mPeriodicRate /= 100;
+  //get 'r' as the APR. If it is specified divide it by 12
+  //to get the periodic rate
+  mRate = atof(System.getProperty("r", "-1.0").c_str());
+  if (mRate != 1.0)
+  {
+    mRate /= 100;
+    mPeriodicRate = mRate / 12;
+    mHavePeriodicRate = true;
+  }
 
-  mTermInMonths = stod(System.getProperty("n", "-1.0"));
+  //get 'n' as the term in months
+  mTermInMonths = atof(System.getProperty("n", "-1.0").c_str());
   mHaveTermInMonths = mTermInMonths != -1.0;
 
-  mMonthlyPayment = stod(System.getProperty("m", "-1.0"));
+  //get 'm' as the monthly payment.
+  mMonthlyPayment = atof(System.getProperty("m", "-1.0").c_str());
   mHaveMonthlyPayment = mMonthlyPayment != -1.0; 
 }
 
 /****************************************************************
-*
+* 
 ****************************************************************/
 double Amortize::mFindInards() 
 {
