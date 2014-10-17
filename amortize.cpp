@@ -236,12 +236,12 @@ Amortize::Amortize()
   bool mShowAmortizationSchedule = (System.getProperty("v", "false")  == "false") ? false : true;
 
   //debug statements
-  cout << "p = " << mPrincipal << endl
-    << "r = " << mRate << endl
-    << "n = " << mTermInMonths << endl
-    << "m = " << mMonthlyPayment << endl
-    << "v = " << mShowAmortizationSchedule << endl
-    << "i = " << mPeriodicRate << endl;
+  cout  << "p = " << mPrincipal                << endl
+        << "r = " << mRate                     << endl
+        << "n = " << mTermInMonths             << endl
+        << "m = " << mMonthlyPayment           << endl
+        << "v = " << mShowAmortizationSchedule << endl
+        << "i = " << mPeriodicRate             << endl;
 }
 
 /****************************************************************
@@ -259,7 +259,8 @@ void Amortize::findPrincipal()
 ****************************************************************/
 void Amortize::findPeriodicRate()
 {
-
+   mPeriodicRate = mRate / 12;
+   mHavePeriodicRate;
 }
 
 /****************************************************************
@@ -268,9 +269,9 @@ void Amortize::findPeriodicRate()
 ****************************************************************/
 void Amortize::findTermInMonths()
 {
-  double temp = mPrincipal - mMonthlyPayment / mPeriodicRate;
-  temp /= -1 * mMonthlyPayment / mPeriodicRate;
-  mTermInMonths = -1 * log(temp) / log(1 + mPeriodicRate);
+  double temp       = mPrincipal - mMonthlyPayment / mPeriodicRate;
+  temp             /= -1 * mMonthlyPayment         / mPeriodicRate;
+  mTermInMonths     = -1 * log(temp)               / log(1 + mPeriodicRate);
   mHaveTermInMonths = true;
 }
 
@@ -279,8 +280,8 @@ void Amortize::findTermInMonths()
  ****************************************************************/
 void Amortize::findMonthlyPayment()
 {
-  double temp = mPeriodicRate / (1 - pow(1 + mPeriodicRate, -1 * mTermInMonths));
-  mMonthlyPayment = temp * mPrincipal;
+  double temp         = mPeriodicRate / (1 - pow(1 + mPeriodicRate, -1 * mTermInMonths));
+  mMonthlyPayment     = temp * mPrincipal;
   mHaveMonthlyPayment = true;
 }
 
