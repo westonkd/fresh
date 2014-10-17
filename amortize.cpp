@@ -263,7 +263,6 @@ void Amortize::findPeriodicRate()
 }
 
 /****************************************************************
-<<<<<<< HEAD
 * Find term in months given principal, interest rate, and monthly
 * payment.
 ****************************************************************/
