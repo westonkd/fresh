@@ -232,8 +232,17 @@ Amortize::Amortize()
   mMonthlyPayment = atof(System.getProperty("m", "-1.0").c_str());
   mHaveMonthlyPayment = mMonthlyPayment != -1.0; 
 
+  // OPTIONAL ARGUMENTS
   //get 'v' to check for verbose mode
   bool mShowAmortizationSchedule = (System.getProperty("v", "false")  == "false") ? false : true;
+  mExtraMonthlyPayment = atof(System.getProperty("x", "0").c_str());
+  // not sure if we should check to see if this is in 1-12?
+  mStart = atoi(System.getProperty("s", "1").c_str());
+  mEnd   = atoi(System.getProperty("e", "-1").c_str());
+  if (mEnd == -1)
+  {
+     mEnd = mTermInMonths;
+  }
 
   //debug statements
   cout  << "p = " << mPrincipal                << endl
