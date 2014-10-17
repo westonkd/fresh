@@ -234,6 +234,7 @@ Amortize::Amortize()
   //get 'v'
   bool mShowAmortizationSchedule = (System.getProperty("n", "false")  == "false") ? false : true;
 
+  //debug statements
   cout << "p = " << mPrincipal << endl
     << "r = " << mRate << endl
     << "n = " << mTermInMonths << endl
@@ -243,7 +244,8 @@ Amortize::Amortize()
 }
 
 /****************************************************************
-* Find p given i, m, n.
+* Find principal given monthly rate, monthly payments, and term 
+* in months.
 ****************************************************************/
 void Amortize::findPrincipal()
 {
@@ -253,7 +255,7 @@ void Amortize::findPrincipal()
 }
 
 /****************************************************************
-*
+* Find i given p, m, n.
 ****************************************************************/
 void Amortize::findPeriodicRate()
 {
@@ -261,11 +263,15 @@ void Amortize::findPeriodicRate()
 }
 
 /****************************************************************
-*
+* Find term in months given principal, interest rate, and monthly
+* payment.
 ****************************************************************/
 void Amortize::findTermInMonths()
 {
-
+  double temp = mPrincipal - mMonthlyPayment / mPeriodicRate;
+  temp /= -1 * mMonthlyPayment / mPeriodicRate;
+  mTermInMonths = -1 * log(temp) / log(1 + mPeriodicRate);
+  mHaveTermInMonths = true;
 }
 
 /****************************************************************
@@ -273,7 +279,9 @@ void Amortize::findTermInMonths()
 ****************************************************************/
 void Amortize::findMonthlyPayment()
 {
-
+  double temp = mPeriodicRate / (1 - pow(1 + mPeriodicRate, -1 * mTermInMonths));
+  mMonthlyPayment = temp * mPrincipal;
+  mHaveMonthlyPayment = true;
 }
 
 // DO NOT CHANGE ANYTHING BELOW THIS LINE!
