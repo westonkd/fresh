@@ -219,8 +219,9 @@ Amortize::Amortize()
   mRate = atof(System.getProperty("r", "-1.0").c_str());
   if (mRate != 1.0)
   {
-    mRate /= 100;
-    mPeriodicRate = mRate / 12;
+    // this makes the display function not work
+    // mRate /= 100;
+    mPeriodicRate = mRate / 1200;
     mHavePeriodicRate = true;
   }
 
@@ -245,7 +246,7 @@ Amortize::Amortize()
   }
 
   //debug statements
-  cout  << "p = " << mPrincipal                << endl
+  cerr  << "p = " << mPrincipal                << endl
         << "r = " << mRate                     << endl
         << "n = " << mTermInMonths             << endl
         << "m = " << mMonthlyPayment           << endl
@@ -268,7 +269,7 @@ void Amortize::findPrincipal()
 ****************************************************************/
 void Amortize::findPeriodicRate()
 {
-   mPeriodicRate = mRate / 12;
+   mPeriodicRate = mRate / 1200;
    mHavePeriodicRate;
 }
 
