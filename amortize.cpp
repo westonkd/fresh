@@ -235,12 +235,12 @@ Amortize::Amortize()
    //get 'v'
    bool mShowAmortizationSchedule = (System.getProperty("n", "false")  == "false") ? false : true;
 
-   cout << "p = " << mPrincipal << endl
-      << "r = " << mRate << endl
-      << "n = " << mTermInMonths << endl
-      << "m = " << mMonthlyPayment << endl
-      << "v = " << mShowAmortizationSchedule << endl
-      << "i = " << mPeriodicRate << endl;
+   cout << "p = " << mPrincipal                << endl
+        << "r = " << mRate                     << endl
+        << "n = " << mTermInMonths             << endl
+        << "m = " << mMonthlyPayment           << endl
+        << "v = " << mShowAmortizationSchedule << endl
+        << "i = " << mPeriodicRate             << endl;
 }
 
 /****************************************************************
@@ -254,7 +254,7 @@ void Amortize::findPrincipal()
 }
 
 /****************************************************************
- *
+ * 
  ****************************************************************/
 void Amortize::findPeriodicRate()
 {
