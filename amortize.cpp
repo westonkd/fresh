@@ -231,7 +231,7 @@ Amortize::Amortize()
   mMonthlyPayment = atof(System.getProperty("m", "-1.0").c_str());
   mHaveMonthlyPayment = mMonthlyPayment != -1.0; 
 
-  //get 'v'
+  //get 'v' to check for verbose mode
   bool mShowAmortizationSchedule = (System.getProperty("n", "false")  == "false") ? false : true;
 
   //debug statements
