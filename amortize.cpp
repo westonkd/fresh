@@ -233,7 +233,7 @@ Amortize::Amortize()
   mHaveMonthlyPayment = mMonthlyPayment != -1.0; 
 
   //get 'v' to check for verbose mode
-  bool mShowAmortizationSchedule = (System.getProperty("n", "false")  == "false") ? false : true;
+  bool mShowAmortizationSchedule = (System.getProperty("v", "false")  == "false") ? false : true;
 
   //debug statements
   cout << "p = " << mPrincipal << endl
