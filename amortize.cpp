@@ -57,8 +57,6 @@
 
    bool mHaveMonthlyPayment; // m
 
-    double mFindInards();              //helper member function
-
    /***********************************************************************
     * Find p given i, m, n.
     ***********************************************************************/
@@ -232,14 +230,16 @@ Amortize::Amortize()
   //get 'm' as the monthly payment.
   mMonthlyPayment = atof(System.getProperty("m", "-1.0").c_str());
   mHaveMonthlyPayment = mMonthlyPayment != -1.0; 
-}
 
-/****************************************************************
-* 
-****************************************************************/
-double Amortize::mFindInards() 
-{
-  return mPeriodicRate + (mPeriodicRate / (pow(1 + mPeriodicRate, mTermInMonths) - 1));
+  //get 'v'
+  bool mShowAmortizationSchedule = (System.getProperty("n", "false")  == "false") ? false : true;
+
+  cout << "p = " << mPrincipal << endl
+    << "r = " << mRate << endl
+    << "n = " << mTermInMonths << endl
+    << "m = " << mMonthlyPayment << endl
+    << "v = " << mShowAmortizationSchedule << endl
+    << "i = " << mPeriodicRate << endl;
 }
 
 /****************************************************************
@@ -247,7 +247,8 @@ double Amortize::mFindInards()
 ****************************************************************/
 void Amortize::findPrincipal()
 {
-  mPrincipal = mPeriodicRate / mFindInards();
+  double temp = 1 - pow(1 + mPeriodicRate, -mTermInMonths);
+  mPrincipal = temp * (mMonthlyPayment / mPeriodicRate);
   mHavePrincipal = true;
 }
 
@@ -272,8 +273,7 @@ void Amortize::findTermInMonths()
 ****************************************************************/
 void Amortize::findMonthlyPayment()
 {
-  mMonthlyPayment = mPrincipal * mFindInards();
-  mHaveMonthlyPayment = true;
+
 }
 
 // DO NOT CHANGE ANYTHING BELOW THIS LINE!
