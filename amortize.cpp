@@ -8,8 +8,6 @@
  *    Amortization Calculating Program
  *    Exploring a practical recurrence relation.
  *
- *  TODO: Add checks to see if values exist in each calulating method
- *  before calculations take place!
  ***********************************************************************/
 #include <cmath>
 #include <cstdlib>
@@ -79,6 +77,9 @@
     **********************************************************************/
     void findTermInMonths();
 
+    /***********************************************************************
+    * Helper function to get the  principal to avoid duplicating code.
+    **********************************************************************/
     double getPrincipal(double i, double m, double n);
 
    /***********************************************************************
@@ -91,7 +92,7 @@
       {
        findPrincipal();
        mHavePrincipal = true;
-     }
+      }
      if (!mHavePeriodicRate && mHavePrincipal &&
       mHaveMonthlyPayment && mHaveTermInMonths)
      {
@@ -109,6 +110,11 @@
      {
        findMonthlyPayment();
        mHaveMonthlyPayment = true;
+     }
+     if (mHavePrincipal && mHaveMonthlyPayment &&
+        mHavePeriodicRate && !mHaveTermInMonths)
+     {
+        mHaveTermInMonths = true;
      }
 
      return (mHavePrincipal && mHaveMonthlyPayment &&
@@ -266,13 +272,15 @@ void Amortize::findPrincipal()
 }
 
 /****************************************************************
-* Find i given p, m, n.
+* Find i given p, m, n. using Newton's Method
 ****************************************************************/
 void Amortize::findPeriodicRate()
 {
+  //start our guess at 10%
   double guess = .1;
   double principalCheck = getPrincipal(guess, mMonthlyPayment, mTermInMonths);
 
+  //stop checking when the current guess is within an acceptable range.
   while (!(principalCheck < mPrincipal + .001 && principalCheck > mPrincipal - .001))
   {
     double temp = mMonthlyPayment - mMonthlyPayment * pow(1 + guess, mTermInMonths * -1) - guess * mPrincipal;
@@ -282,8 +290,11 @@ void Amortize::findPeriodicRate()
     principalCheck = getPrincipal(guess, mMonthlyPayment, mTermInMonths);
   }
 
+  //set the rates
   mPeriodicRate = guess;
   mRate = guess * 12;
+  
+  mHavePeriodicRate = true;
 }
 
 /****************************************************************
@@ -294,8 +305,7 @@ void Amortize::findTermInMonths()
 {
   double temp = mPrincipal - mMonthlyPayment / mPeriodicRate;
   temp /= -1 * mMonthlyPayment / mPeriodicRate;
-  mTermInMonths = -1 * log(temp) / log(1 + mPeriodicRate);
-  mHaveTermInMonths = true;
+  mTermInMonths = -1 * log(temp) / log(1 + mPeriodicRate) + 1;
 }
 
 /****************************************************************
@@ -305,7 +315,6 @@ void Amortize::findMonthlyPayment()
 {
   double temp = mPeriodicRate / (1 - pow(1 + mPeriodicRate, -1 * mTermInMonths));
   mMonthlyPayment = temp * mPrincipal;
-  mHaveMonthlyPayment = true;
 }
 
 // DO NOT CHANGE ANYTHING BELOW THIS LINE!
