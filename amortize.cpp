@@ -237,6 +237,16 @@ Amortize::Amortize()
 
   //get 'v' to check for verbose mode
   mShowAmortizationSchedule = (System.getProperty("v", "false")  == "false") ? false : true;
+
+  //check for extra monthly payments (x)
+  mExtraMonthlyPayment = atof(System.getProperty("v", "-1.0").c_str());
+
+  //check for start date
+  mStart = atoi(System.getProperty("s", "-1").c_str());
+
+  //check for an end date
+  mEnd = atoi(System.getProperty("e", "0").c_str());
+
 }
 
 /****************************************************************
