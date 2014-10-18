@@ -4,6 +4,7 @@
  *    Brother Neff, CS 238
  * Author:
  *    Weston Dransfield
+ *    Gage Peterson
  * Summary:
  *    Amortization Calculating Program
  *    Exploring a practical recurrence relation.
