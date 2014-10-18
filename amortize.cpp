@@ -220,10 +220,10 @@ Amortize::Amortize()
   //get 'r' as the APR. If it is specified divide it by 12
   //to get the periodic rate
   mRate = atof(System.getProperty("r", "-1.0").c_str());
-  if (mRate != -1.0)
+  if (mRate > 0)
   {
-    mRate /= 100;
-    mPeriodicRate = mRate / 12;
+    //mRate /= 100;
+    mPeriodicRate = mRate / 1200;
     mHavePeriodicRate = true;
   }
 
@@ -239,7 +239,7 @@ Amortize::Amortize()
   mShowAmortizationSchedule = (System.getProperty("v", "false")  == "false") ? false : true;
 
   //check for extra monthly payments (x)
-  mExtraMonthlyPayment = atof(System.getProperty("v", "-1.0").c_str());
+  mExtraMonthlyPayment = atof(System.getProperty("x", "-1.0").c_str());
 
   //check for start date
   mStart = atoi(System.getProperty("s", "-1").c_str());
