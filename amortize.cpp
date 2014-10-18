@@ -270,7 +270,7 @@ void Amortize::findPrincipal()
 void Amortize::findPeriodicRate()
 {
    mPeriodicRate = mRate / 1200;
-   mHavePeriodicRate;
+   mHavePeriodicRate = true;
 }
 
 /****************************************************************
